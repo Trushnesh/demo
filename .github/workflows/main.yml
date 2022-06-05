@@ -54,3 +54,16 @@ jobs:
          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
        with:
          title: ${{ needs.determine-tag.outputs.determined-tag }}
+
+  create-tag:
+    runs-on: ubuntu-latest
+    needs: release
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+    - name: Create new tag
+      uses: anothrNick/github-tag-action@1.36.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        WITH_V: true
