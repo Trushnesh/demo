@@ -33,7 +33,7 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml
       - name: Publish package
-        run: 
+        run: |
           mvn versions:set -DnewVersion=${{ steps.determine-tag.outputs.new_tag }}
           mvn deploy --settings settings.xml
         env:
