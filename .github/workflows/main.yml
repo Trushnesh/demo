@@ -17,3 +17,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         WITH_V: true
         DRY_RUN: true
+    - name: verify determined tag value
+      run: echo ${{ steps.determine-tag.outputs.new_tag }}
