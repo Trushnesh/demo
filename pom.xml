@@ -41,7 +41,7 @@
         <repository>
           <id>github</id>
           <name>GitHub Packages</name>
-          <url>https://maven.pkg.github.com/Trushnesh</url>
+          <url>https://maven.pkg.github.com/Trushnesh/demo</url>
         </repository>
       </distributionManagement>
 </project>
