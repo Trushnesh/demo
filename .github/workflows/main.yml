@@ -4,8 +4,10 @@ on:
     branches:
       - main
 jobs:
-  build:
+  determine-tag:
     runs-on: ubuntu-latest
+    outputs: 
+      determined-tag: ${{ steps.determine-tag.outputs.new_tag }}
     steps:
     - uses: actions/checkout@v2
       with:
@@ -21,9 +23,9 @@ jobs:
       run: echo ${{ steps.determine-tag.outputs.new_tag }}
 
 
-  publish:
+  mnv-build-publish:
     runs-on: ubuntu-latest
-    needs: build
+    needs: determine-tag
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 11 
@@ -33,10 +35,10 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml
       - name: verify determined tag value
-        run: echo ${{ steps.determine-tag.outputs.new_tag }}
+        run: echo ${{ needs.determine-tag.outputs.determined-tag }}
       - name: Publish package
         run: |
-          mvn versions:set -DnewVersion=${{ steps.determine-tag.outputs.new_tag }}
+          mvn versions:set -DnewVersion=${{ needs.determine-tag.outputs.determined-tag }}
           mvn deploy --settings settings.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
