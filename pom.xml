@@ -37,5 +37,11 @@
 			</plugin>
 		</plugins>
 	</build>
-
+      <distributionManagement>
+        <repository>
+          <id>github</id>
+          <name>GitHub Packages</name>
+          <url>https://github.com/Trushnesh/demo</url>
+        </repository>
+      </distributionManagement>
 </project>
