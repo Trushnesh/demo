@@ -32,6 +32,8 @@ jobs:
           java-version: '11'
       - name: Build with Maven
         run: mvn -B package --file pom.xml
+      - name: verify determined tag value
+        run: echo ${{ steps.determine-tag.outputs.new_tag }}
       - name: Publish package
         run: |
           mvn versions:set -DnewVersion=${{ steps.determine-tag.outputs.new_tag }}
